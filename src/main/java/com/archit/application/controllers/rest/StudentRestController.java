@@ -1,11 +1,11 @@
 package com.archit.application.controllers.rest;
 
-import com.archit.application.exceptions.StudentErrorResponse;
 import com.archit.application.exceptions.StudentNotFoundException;
 import com.archit.application.models.Student;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class StudentRestController {
     }
 
     // add an exception handler using @ExceptionHandler
-    @ExceptionHandler
+    /*@ExceptionHandler
     public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException e) {
 
         // create a StudentErrorResponse
@@ -62,15 +62,15 @@ public class StudentRestController {
         // return ResponseEntity
         // Jackson will convert it to JSON
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
+    }*/
 
     // add another exception handler to catch any exception (catch all)
-    @ExceptionHandler
+    /*@ExceptionHandler
     public ResponseEntity<StudentErrorResponse> handleException(Exception e) {
         StudentErrorResponse errorResponse = new StudentErrorResponse();
         errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
         errorResponse.setMessage(e.getMessage()); // can be customized to be more precise
         errorResponse.setTimeStamp(System.currentTimeMillis());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
+    }*/
 }
