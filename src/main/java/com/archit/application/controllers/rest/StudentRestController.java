@@ -2,6 +2,7 @@ package com.archit.application.controllers.rest;
 
 import com.archit.application.models.Student;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +35,11 @@ public class StudentRestController {
     @GetMapping("/students")
     public List<Student> getStudents() {
         return students; // Jackson will convert this student object to JSON
+    }
+
+    // define endpoint for "/students/{studentId}" - return student at index
+    @GetMapping("/students/{studentId}")
+    public Student getStudent(@PathVariable int studentId) {
+        return students.get(studentId);
     }
 }
