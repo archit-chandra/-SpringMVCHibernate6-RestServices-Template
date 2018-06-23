@@ -56,11 +56,21 @@ public class StudentRestController {
         // create a StudentErrorResponse
         StudentErrorResponse errorResponse = new StudentErrorResponse();
         errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        errorResponse.setMessage(e.getMessage());
+        errorResponse.setMessage(e.getMessage()); // can be customized to be more precise
         errorResponse.setTimeStamp(System.currentTimeMillis());
 
         // return ResponseEntity
         // Jackson will convert it to JSON
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    // add another exception handler to catch any exception (catch all)
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(Exception e) {
+        StudentErrorResponse errorResponse = new StudentErrorResponse();
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setMessage(e.getMessage()); // can be customized to be more precise
+        errorResponse.setTimeStamp(System.currentTimeMillis());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }
