@@ -1,11 +1,11 @@
 package com.archit.application.controllers.rest;
 
+import com.archit.application.exceptions.StudentErrorResponse;
 import com.archit.application.exceptions.StudentNotFoundException;
 import com.archit.application.models.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -47,5 +47,20 @@ public class StudentRestController {
             throw new StudentNotFoundException("Student Id not found - " + studentId);
         }
         return students.get(studentId);
+    }
+
+    // add an exception handler using @ExceptionHandler
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException e) {
+
+        // create a StudentErrorResponse
+        StudentErrorResponse errorResponse = new StudentErrorResponse();
+        errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        errorResponse.setMessage(e.getMessage());
+        errorResponse.setTimeStamp(System.currentTimeMillis());
+
+        // return ResponseEntity
+        // Jackson will convert it to JSON
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }
