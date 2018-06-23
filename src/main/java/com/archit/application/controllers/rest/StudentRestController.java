@@ -1,5 +1,6 @@
 package com.archit.application.controllers.rest;
 
+import com.archit.application.exceptions.StudentNotFoundException;
 import com.archit.application.models.Student;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,11 @@ public class StudentRestController {
     // define endpoint for "/students/{studentId}" - return student at index
     @GetMapping("/students/{studentId}")
     public Student getStudent(@PathVariable int studentId) {
+
+        // check the studentId against the list size
+        if (studentId >= students.size() || studentId < 0) {
+            throw new StudentNotFoundException("Student Id not found - " + studentId);
+        }
         return students.get(studentId);
     }
 }
