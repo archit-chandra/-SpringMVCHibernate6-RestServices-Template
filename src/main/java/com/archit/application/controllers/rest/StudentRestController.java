@@ -19,6 +19,6 @@ public class StudentRestController {
         students.add(new Student("Archit", "Chandra"));
         students.add(new Student("Ankush", "Chandra"));
         students.add(new Student("Richa", "Patel"));
-        return students;
+        return students; // Jackson will convert this student object to JSON
     }
 }
